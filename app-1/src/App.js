@@ -3,6 +3,18 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state ={
+      userInput: ""
+    }
+  }
+  handleChange(value){
+    this.setState({
+      userInput: value
+    })
+
+  }
   render() {
     return (
       <div className="App">
@@ -10,9 +22,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input onChange={(e) => this.handleChange(e.target.value)} type= "text"></input>
+        <button>Click Here</button>
+        <h4 className = "userInput">{this.state.userInput}</h4>
       </div>
     );
   }

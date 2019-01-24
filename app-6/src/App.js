@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ToDo from "./ToDo.js"
 
-class App extends Component {
+export default class App extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      userInput: "",
+      userTasks: []
+    }
+    this.handleUserInput = this.handleUserInput.bind(this)
+    this.updateTask = this.updateTask.bind(this)
+    this.format = this.format.bind(this)
+  }
+  handleUserInput(value){
+    this.setState({
+      userInput:value
+    });
+  }
+  updateTask(){
+    this.setState({
+      userTasks:[...this.state.userTasks,this.state.userInput],
+      userInput:""
+
+    })
+  }
+  format(arr){
+    return arr.map((e) => <h1>{e +"\n"}</h1>)
+  }
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input onChange = {(e) => this.handleUserInput(e.target.value)}></input>
+        <button onClick = {() => this.updateTask()}>Add Task</button>
+        <ToDo label ={this.format(this.state.userTasks)}/>
       </div>
     );
   }
 }
 
-export default App;
+
+
